@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CAS-CLIENT</title>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .col-center-block {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">CAS-CLIENT</a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="global_display_logout"><a id="global_btn_logout" href="#"><span
+                            class="glyphicon glyphicon-user"></span> sign out</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="col-lg-8 col-center-block">
+        <div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>time</th>
+                    <th>name</th>
+                    <th>desc</th>
+                </tr>
+                </thead>
+                <tbody id="index_table_body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var href = window.location.protocol + "//" + window.location.host + "/client/api/v1/base/logout";
+            $("#global_btn_logout").attr("href", href);
+
+            setInterval(function () {
+                $.ajax({
+                    url: window.location.protocol + "//" + window.location.host + "/client/api/v1/base/gene_data",
+                    type: "get",
+                    contentType: "application/json;charset=utf-8",
+                    timeout: 30000,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (data) {
+                        if (data) {
+                            $("#index_table_body").append("<tr>\n" +
+                                "<td>" + data.time + "</td>\n" +
+                                "<td>" + data.name + "</td>\n" +
+                                "<td>" + data.desc + "</td>\n" +
+                                "</tr>");
+                        }
+                    },
+                    error: function (jqXHR, textStatus) {
+                        alert(jqXHR.responseJSON);
+                    }
+                });
+            }, 5000);
+        });
+    </script>
+</div>
+</body>
+</html>

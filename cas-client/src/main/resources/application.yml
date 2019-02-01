@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: cas-client
+  resources:
+    static-locations: file:${work.home}/web/
+
+server:
+  port: 8500
+  servlet:
+    context-path: /
+    application-display-name: cas-client
+  tomcat:
+    max-threads: 200
+    uri-encoding: UTF-8
+
+logging:
+  file: ${user.dir}/logs/cas-client.log
