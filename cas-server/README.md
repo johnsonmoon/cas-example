@@ -24,7 +24,7 @@ cas-overlay-template-5.3.zip
 - 进入准备安装CAS单点登录服务端的服务器  
 
 - 配置CAS服务器的域名  
-这里介绍在 **centos** 下，修改 /etc/hosts 文件，将本机IP地址绑定至**[example.com]**  
+这里介绍在 **centos** 下，修改 /etc/hosts 文件，将本机IP地址绑定至**example.com**  
 ![](asserts/cas-server-install-hostname2.png)  
 保存修改，并重启服务器使之生效
 
@@ -46,7 +46,7 @@ cas-overlay-template-5.3.zip
 ![](asserts/cas-server-jdk-verify.png)  
 
 ### 对配置的域名导出网站证书
-**导出文件均在 /opt 目录下进行，输出目录均为 /opt **  
+导出文件均在 /opt 目录下进行，输出目录均为 /opt  
 
 - 导出keystore
 ```
@@ -125,17 +125,17 @@ mv apache-tomcat-8.5.37 tomcat
 #### 再次关闭tomcat，进入cas-server目录进行细节配置
 -  配置若干登录用户信息  
 在这里通过cas-server自带的配置文件，静态的写入若干登录用户信息，以供客户端登录使用  
-(1)进入目录 **/opt/tomcat/webapps/cas/WEB-INF/classes**, 找到配置文件 **application.properties** 和 **user-details.properties**
+(1)进入目录 **/opt/tomcat/webapps/cas/WEB-INF/classes**, 找到配置文件 **application.properties** 和 **user-details.properties**  
 (2)编辑 **application.properties** 文件，如下：  
 ![](asserts/cas-server-conf2.png)  
 (3)编辑 **user-details.properties** 文件，如下：  
 ![](asserts/cas-server-conf3.png)  
 
-- 配置客户端serviceUrl允许http访问
+- 配置客户端serviceUrl允许http访问  
 (1)进入目录 **/opt/tomcat/webapps/cas/WEB-INF/classes/services**, 编辑 **HTTPSandIMAPS-10000001.json** 文件，如下图：  
 ![](asserts/cas-server-conf4.png)  
 (2)进入目录 **/opt/tomcat/webapps/cas/WEB-INF/classes**，编辑 **application.properties** 文件，添加 **cas.serviceRegistry.initFromJson=true** 配置如下：  
-![](asserts/cas-server-conf5.png)
+![](asserts/cas-server-conf5.png)  
 
 #### 启动tomcat并验证
 - 进入登录页输入用户名密码点击登录，登陆成功则说明上述配置成功，如下图：  

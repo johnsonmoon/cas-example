@@ -119,7 +119,7 @@ public class Main implements ServletContextInitializer {
 
 注意：  
 - 由于客户端工程为SpringBoot应用，因此通过实现 **ServletContextInitializer** 接口的 **onStartup** 方法，注册cas客户端需要的各个组件其中包括必要的监听器、web过滤器等，以及需要开发者自己实现的一个过滤器。  
-- 启动代码的几个常亮配置是必须的，配置了CAS服务端的URL等， **serverName**, **casServerLoginUrl**, **casServerUrlPrefix**, **casLogoutUrl**
+- 启动代码的几个常量配置是必须的，配置了CAS服务端的URL等，开发者自己编写客户端时候可以通过读取配置文件的形式进行配置。  
 
 ### 启动配置文件
 ```
@@ -230,9 +230,9 @@ public class CASAuthFilter extends AbstractCasFilter {
 ```
 注意：  
 自定义过滤器中，需要开发者实现逻辑为：  
-(1)判断请求是否带有有效的用户会话，若有，则说明用户成功登陆CAS服务器，对该请求放行。
-(2)若请求中午有效的用户会话，而有带有票据参数(ticket)，则将请求放行给其他过滤器进行校验等一系列操作。
-(3)若请求中既没有有效的用户会话，也没有票据参数，则将请求重定向到CAS服务器用户登录页面。
+(1)判断请求是否带有有效的用户会话，若有，则说明用户成功登陆CAS服务器，对该请求放行。  
+(2)若请求中午有效的用户会话，而有带有票据参数(ticket)，则将请求放行给其他过滤器进行校验等一系列操作。  
+(3)若请求中既没有有效的用户会话，也没有票据参数，则将请求重定向到CAS服务器用户登录页面。  
 
 ### 基础服务Controller
 **com.github.johnsonmoon.casclient.controller.BaseController**  
@@ -298,8 +298,8 @@ public class BaseController {
 ```
 说明：  
 该类提供了两个前端接口：  
-(1)获取CAS服务用户登出URL
-(2)获取数据接口，获取的数据包含从请求中获取已登录用户信息的数据。
+(1)获取CAS服务用户登出URL  
+(2)获取数据接口，获取的数据包含从请求中获取已登录用户信息的数据。  
 
 ## 启动客户端并检验单点登录
 
@@ -330,4 +330,5 @@ mvn clean package
 ![](asserts/cas-client-test1.png)  
 
 - 输入用户名密码点击登录，页面自动跳转回客户端，客户端定时获取用户数据(用户名)输出到页面中，如下：  
-![](asserts/cas-client-test2.png)
+![](asserts/cas-client-test2.png)  
+页面定时将已登录的用户名信息输出到表格中，说明单点登录成功、客户端从单点登录CAS服务器获取用户信息成功。  
